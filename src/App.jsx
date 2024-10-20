@@ -1,47 +1,49 @@
-import { useState } from "react";
-import { useRef } from "react";
+import { useState,useRef } from "react";
+
+
+export default function App(){
 
 
 
 
-function App(){
-  const [currentCount,setCurrentCount] = useState(0);
-  const timer = useRef(null);
-
-  function startClock(){
-    
-   
-    if(timer.current === null){
-      timer.current = setInterval(function(){
-        setCurrentCount(c=>c+1)
-  
-      },1000);
-
-      
-      
-    }
-  
-  }
-
-
-  function stopClock(){
-    clearInterval(timer.current)
-    timer.current = null
-  }
 
 
   return <div>
-    {currentCount}
-
-  <button onClick = {startClock}>Start the Clock</button>
-  <button onClick = {stopClock}>Stop the clock</button>
-
-
-
+    <LightBulb/>
   </div>
 }
 
 
 
+function LightBulb(){
+  const [bulbOn , setBulbOn] = useState(true);
 
-export default App
+  return <div>
+    <BulbState bulbOn ={bulbOn}/>
+    <ToggleBulbState setBulbOn = {setBulbOn} />
+
+  </div>
+
+}
+
+function BulbState(props){
+  
+
+
+  return <div>
+    {props.bulbOn ? <div> Bulb is On </div> : <div> Bulb is off </div>}
+
+  </div>
+}
+
+function ToggleBulbState(props){
+  function changeState(){
+    props.setBulbOn(currentState => !currentState)
+  }
+
+
+
+  return <div>
+    <button onClick={changeState}>Toggle the Bulb</button>
+  </div>
+}
