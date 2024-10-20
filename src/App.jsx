@@ -1,106 +1,47 @@
+import { useState } from "react";
+import { useRef } from "react";
 
-import './App.css'
-import {BrowserRouter,Routes,Route,Link,Outlet} from 'react-router-dom'
 
 
 
 function App(){
+  const [currentCount,setCurrentCount] = useState(0);
+  const timer = useRef(null);
 
-
-
-return <>
-
-
-<BrowserRouter>
-
-<Routes>
-  <Route path ='/' element = {<Layout/>}>
-   <Route path = "/neet/class11" element = {<Class11Program/>} />
-   <Route path = "/neet/class12" element = {<Class12Program/>} />
-   <Route path = "/" element = {<Landing/>} />
-   <Route path = '*' element = {<Error/>}/>
-
-
-  </Route>
+  function startClock(){
+    
+   
+    if(timer.current === null){
+      timer.current = setInterval(function(){
+        setCurrentCount(c=>c+1)
   
-</Routes>
-</BrowserRouter>
+      },1000);
+
+      
+      
+    }
+  
+  }
 
 
-
-
-
-</>
-}
-function Layout(){
-
-
+  function stopClock(){
+    clearInterval(timer.current)
+    timer.current = null
+  }
 
 
   return <div>
-     <Link to = "/">Allen</Link> 
+    {currentCount}
 
-     <Link to = "/neet/class11">Class 11</Link>
-|
-     <Link to = "/neet/class12">Class 12</Link>
+  <button onClick = {startClock}>Start the Clock</button>
+  <button onClick = {stopClock}>Stop the clock</button>
 
-    <Outlet/>
-    Contact Us
+
+
   </div>
 }
 
 
-
-function Error(){
-
-  return <div>
-    Sorry page not found
-  </div>
-
-}
-
-
-
-function Landing(){
-
-
-  return <div>
-
-    Welcome to Allen
-  </div>
-}
-
-
-
-
-
-
-function Class11Program(){
-
-
-
-
-  return <div>
-    Class 11 NEET
-
-  </div>
-
-
-}
-
-function Class12Program(){
-
-
-
-  return <div>
-    Class 12 NEET
-
-
-  </div>
-
-
-
-}
 
 
 export default App
