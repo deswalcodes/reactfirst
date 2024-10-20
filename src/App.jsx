@@ -1,167 +1,106 @@
-import { useState,useEffect } from 'react'
-import { PostComponent } from './post'
-import React from 'react'
 
 import './App.css'
+import {BrowserRouter,Routes,Route,Link,Outlet} from 'react-router-dom'
+
+
 
 function App(){
 
 
 
+return <>
+
+
+<BrowserRouter>
+
+<Routes>
+  <Route path ='/' element = {<Layout/>}>
+   <Route path = "/neet/class11" element = {<Class11Program/>} />
+   <Route path = "/neet/class12" element = {<Class12Program/>} />
+   <Route path = "/" element = {<Landing/>} />
+   <Route path = '*' element = {<Error/>}/>
+
+
+  </Route>
+  
+</Routes>
+</BrowserRouter>
+
+
+
+
+
+</>
+}
+function Layout(){
+
+
 
 
   return <div>
-    <ErrorBoundary>
-    <Card1/>
-    </ErrorBoundary>
-   
-    <Card2/>
+     <Link to = "/">Allen</Link> 
 
+     <Link to = "/neet/class11">Class 11</Link>
+|
+     <Link to = "/neet/class12">Class 12</Link>
 
-
+    <Outlet/>
+    Contact Us
   </div>
 }
 
 
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-      super(props);
-      this.state = { hasError: false };
-  }
 
-  static getDerivedStateFromError(error) {
-      return { hasError: true };
-  }
+function Error(){
 
-  componentDidCatch(error, info) {
-      console.error("Error caught:", error, info);
-  }
+  return <div>
+    Sorry page not found
+  </div>
 
-  render() {
-      if (this.state.hasError) {
-          return <h1 style = {{background : "red",borderRadius:20,padding :20,margin : 20}}>Something went wrong.</h1>;
-      }
-
-      return this.props.children; 
-  }
 }
 
-function Card1(){
-
-  throw new Error("Error while rendering")
 
 
+function Landing(){
 
 
-  return <div style = {{background : 'red',borderRadius : 20,padding :20}}>
-    hii
+  return <div>
+
+    Welcome to Allen
+  </div>
+}
+
+
+
+
+
+
+function Class11Program(){
+
+
+
+
+  return <div>
+    Class 11 NEET
+
+  </div>
+
+
+}
+
+function Class12Program(){
+
+
+
+  return <div>
+    Class 12 NEET
+
 
   </div>
 
 
 
 }
-
-
-function Card2(){
-
-
-return <div style = {{background : "red",borderRadius:20,padding :20,margin : 20}}>
-  hello
-
-</div>
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function App() {
-//   const [posts,setPosts] = useState([])
-//   // const posts = [{
-//   //   Name : "Priyanshu",
-//   //   subtitle : '10k followeres',
-//   //   time : '3m ago',
-//   //   image : 'https://cdn-icons-png.flaticon.com/512/104/104499.png',
-//   //   description : "How to get hired in 2024?" 
-//   // }]
-
-//   const postComponents = posts.map(post => <PostComponent
-//     Name = {post.Name}
-//     subtitle = {post.subtitle}
-//     time = {post.time}
-//     image = {post.image}
-//     description = {post.description}
-//     />)
-
-
-//   function addPost(){
-//     setPosts([...posts,{
-//       Name : "Deswal",
-//       subtitle : '1k followeres',
-//       // time : '4m ago',
-//       image : 'https://cdn-icons-png.flaticon.com/512/104/104499.png',
-//       description : "How to get hired in 2025?" 
-//     }])
-   
-
-
-//   }
-  
-  
-
-//   return <div style = {{backgroundColor : "#95a5a6",height : "100vh"}}>
-//     <button onClick = {addPost}>Add New Post</button>
-//     <div style = {{display : 'flex',justifyContent : 'center',padding: 10}}>
-//       <div>
-//         {postComponents}
-     
-//       </div>
-
-      
-
-     
-    
-      
-
-
-//     </div>
-      
-
-
-
-
-//   </div>
-   
-
-  
-    
-// }
-
-
-
-
-
-
 
 
 export default App
