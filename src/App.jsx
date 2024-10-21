@@ -2,6 +2,7 @@ import { useState,useRef } from "react";
 
 
 export default function App(){
+  const [bulbOn , setBulbOn] = useState(true);
 
 
 
@@ -9,14 +10,14 @@ export default function App(){
 
 
   return <div>
-    <LightBulb/>
+    <LightBulb bulbOn = {bulbOn} setBulbOn = {setBulbOn}/>
   </div>
 }
 
 
 
-function LightBulb(){
-  const [bulbOn , setBulbOn] = useState(true);
+function LightBulb(bulbOn,setBulbOn){
+  
 
   return <div>
     <BulbState bulbOn ={bulbOn}/>
