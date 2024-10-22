@@ -1,33 +1,41 @@
-import { useEffect,useState } from "react";
-import { useFetch } from "./hooks/useFetch";
-import { usePrev } from "./hooks/usePrev";
+import { useRef } from "react"
+
+
+function useDebounce(originalFn){
+  const currentClock = useRef()
+
+  function reset(){
+    clearTimeout(currentClock.current)
+    currentClock.current = setTimeout(originalFn,200)
+
+
+  }
+    
+
+  
+  return reset
+
+
+  
+
+
+  
+
+}
 
 export default function App(){
-  const [state,setState] = useState(0);
-  const prev = usePrev(state);
-  return <>
-  <p>{state}</p>
-  <button onClick ={() => setState(current => current +1)}>Click me</button>
-  <p>The previous value was {prev}</p>
 
-  
-  
-  
-  
-  
-  
-  </>
 
- 
+  function sendData(){
+    fetch("https://jsonplaceholder.typicode/todos/1")
+  }
 
-  
-
+  const debouncedFun = useDebounce(sendData)
 
 
   return <div>
-   
-
-
-
+    <input type ="text" onChange={debouncedFun}></input>
   </div>
+
+
 }
