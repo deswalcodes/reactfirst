@@ -1,41 +1,62 @@
-import { useRef } from "react"
-
-
-function useDebounce(originalFn){
-  const currentClock = useRef()
-
-  function reset(){
-    clearTimeout(currentClock.current)
-    currentClock.current = setTimeout(originalFn,200)
-
-
-  }
-    
-
-  
-  return reset
-
-
-  
-
-
-  
-
-}
+import { RecoilRoot,atom, useRecoilValue, useSetRecoilState } from "recoil";
+import { counterAtom } from "./store/atoms/counter";
 
 export default function App(){
 
 
-  function sendData(){
-    fetch("https://jsonplaceholder.typicode/todos/1")
-  }
+  return(
+    <RecoilRoot>
+      <Counter/>
+    </RecoilRoot>
+  )
+}
 
-  const debouncedFun = useDebounce(sendData)
+
+function Counter(){
+  
+
+  return <div>
+    <CurrentCount/>
+    <Increase/>
+    <Decrease/>
+  </div>
+}
+
+
+function CurrentCount(){
+  const count = useRecoilValue(counterAtom)
+
+
 
 
   return <div>
-    <input type ="text" onChange={debouncedFun}></input>
+    {count}
+
   </div>
+}
+
+function Increase(){
+  const setCount = useSetRecoilState(counterAtom)
 
 
+
+  return <div>
+    <button onClick = {() => setCount(count => count +1)}>Increase</button>
+
+  </div>
+}
+
+
+function Decrease(){
+  const setCount = useSetRecoilState(counterAtom)
+
+
+
+
+  return <div>
+    <button onClick = {() => setCount(count => count -1)}>Decrease</button>
+
+
+
+  </div>
 }
