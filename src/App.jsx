@@ -1,70 +1,23 @@
-import { useState,useRef,createContext, useContext } from "react";
-
-const BulbContext = createContext();
-
-
-function BulbProvider({children}){
-  const [bulbOn , setBulbOn] = useState(true);
-
-  return <BulbContext.Provider value = {{
-    bulbOn : bulbOn,
-    setBulbOn : setBulbOn
-   }}>
-    {children}
-   </BulbContext.Provider>
-
-}
+import { useEffect,useState } from "react";
+import { useFetch } from "./hooks/useFetch";
 
 export default function App(){
-  const [bulbOn , setBulbOn] = useState(true);
+  const [currentPost ,setCurrentPost] =useState(1)
+  const {finalData,loading} = useFetch("https://jsonplaceholder.typicode.com/posts/" + currentPost)
 
 
-
+  
 
 
 
   return <div>
-   <BulbProvider>
-     <LightBulb />
-   </BulbProvider>
+    <button onClick = {() => setCurrentPost(1)}>1</button>
+    <button onClick = {() => setCurrentPost(2)}>2</button>
+    <button onClick = {() => setCurrentPost(3)}>3</button>
     
-  </div>
-}
+    {!loading ? JSON.stringify(finalData) : <div> loading </div>}
 
 
 
-function LightBulb(){
-  
-
-  return <div>
-    <BulbState />
-    <ToggleBulbState />
-
-  </div>
-
-}
-
-function BulbState(){
-  const {bulbOn} = useContext(BulbContext)
-  
-
-
-  return <div>
-    {bulbOn ? <div> Bulb is On </div> : <div> Bulb is off </div>}
-
-  </div>
-}
-
-function ToggleBulbState(){
-
-  const {setBulbOn} = useContext(BulbContext)
-  function changeState(){
-    setBulbOn(currentState => !currentState)
-  }
-
-
-
-  return <div>
-    <button onClick={changeState}>Toggle the Bulb</button>
   </div>
 }
