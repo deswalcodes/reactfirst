@@ -3,11 +3,11 @@ import { useState,useEffect } from "react";
 
 
 
-export function useFetch(url){
+export function useFetch(url,timeOut){
     const [finalData,setFinalData] = useState({})
     const [loading,setLoading] = useState(true)
 
-    async function getPostdata(){
+    async function getDetails(){
         setLoading(true)
         const response = await fetch(url);
         const json = await response.json();
@@ -19,9 +19,17 @@ export function useFetch(url){
 
 
     useEffect(function(){
-        getPostdata()
+        getDetails()
 
     },[url])
+    useEffect(function(){
+        setInterval(function(){
+            getDetails
+        },timeOut * 1000)
+
+    })
+
+
 
     return {
         finalData,
